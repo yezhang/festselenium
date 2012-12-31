@@ -113,3 +113,66 @@ public class DemoTest {
 }}}
 
 Note: The unit test depends on _* festselenium-1.0.jar, selenium-server-standalone-2.25.0.jar and selenium-java-2.25.0.jar* . the last two jar can be download from [http://www.eclipse.org/downloads/ selenium offical site]
+
+== selenium interaction==
+{{{
+
+D:\Automation>java -jar D:\Automation\selenium-server-standalone-2.25.0.jar  -ti
+meout 10000000
+2012-12-31 15:19:49 org.openqa.grid.selenium.GridLauncher main
+信息: Launching a standalone server
+15:19:49.751 INFO - Java: Sun Microsystems Inc. 11.3-b02
+15:19:49.751 INFO - OS: Windows Vista 6.1 x86
+15:19:49.751 INFO - v2.25.0, with Core v2.25.0. Built from revision 17482
+15:19:49.845 INFO - RemoteWebDriver instances should connect to: http://127.0.0.
+1:4444/wd/hub
+15:19:49.845 INFO - Version Jetty/5.1.x
+15:19:49.845 INFO - Started HttpContext[/selenium-server/driver,/selenium-server
+/driver]
+15:19:49.845 INFO - Started HttpContext[/selenium-server,/selenium-server]
+15:19:49.845 INFO - Started HttpContext[/,/]
+15:19:49.876 INFO - Started org.openqa.jetty.jetty.servlet.ServletHandler@1a62c3
+1
+15:19:49.876 INFO - Started HttpContext[/wd,/wd]
+15:19:49.876 INFO - Started SocketListener on 0.0.0.0:4444
+15:19:49.876 INFO - Started org.openqa.jetty.jetty.Server@2bb514
+15:19:56.179 INFO - Checking Resource aliases
+15:19:56.179 INFO - Command request: getNewBrowserSession[*iexplore, http://loca
+lhost:8080, ] on session null
+15:19:56.179 INFO - creating new remote session
+15:19:56.195 INFO - Allocated session a84fc3216d6c41f1865ab7a710189814 for http:
+//localhost:8080, launching...
+jar:file:/D:/Automation/selenium-server-standalone-2.25.0.jar!/core
+15:19:56.725 INFO - Launching Embedded Internet Explorer...
+15:19:56.959 INFO - Launching Internet Explorer HTA...
+15:20:04.644 INFO - Got result: OK,a84fc3216d6c41f1865ab7a710189814 on session a
+84fc3216d6c41f1865ab7a710189814
+15:20:04.659 INFO - Command request: open[demo_applet.html, ] on session a84fc32
+16d6c41f1865ab7a710189814
+15:20:08.208 INFO - Got result: OK on session a84fc3216d6c41f1865ab7a710189814
+15:20:08.223 INFO - Command request: windowMaximize[, ] on session a84fc3216d6c4
+1f1865ab7a710189814
+15:20:08.847 INFO - Got result: OK on session a84fc3216d6c41f1865ab7a710189814
+15:20:08.847 INFO - Command request: getEval[navigator.userAgent, ] on session a
+84fc3216d6c41f1865ab7a710189814
+15:20:09.362 INFO - Got result: OK,Mozilla/4.0 (compatible; MSIE 7.0; Windows NT
+ 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CL
+R 3.0.30729; eSobiSubscriber 2.0.4.16; MAAR; .NET4.0C; .NET4.0E; InfoPath.2) on
+session a84fc3216d6c41f1865ab7a710189814
+15:20:09.378 INFO - Command request: getEval[window.document.getElementById("dem
+o_applet").getTestFixture().scrollBar().scrollUnitUp(), ] on session a84fc3216d6
+c41f1865ab7a710189814
+15:20:10.189 INFO - Got result: OK,org.fest.swing.fixture.JScrollBarFixture@1199
+c2e on session a84fc3216d6c41f1865ab7a710189814
+15:20:10.205 INFO - Command request: getEval[window.document.getElementById("dem
+o_applet").getTestFixture().textBox().text(), ] on session a84fc3216d6c41f1865ab
+7a710189814
+15:20:10.719 INFO - Got result: OK,1 on session a84fc3216d6c41f1865ab7a710189814
+
+15:20:10.719 INFO - Command request: testComplete[, ] on session a84fc3216d6c41f
+1865ab7a710189814
+15:20:10.719 WARN - Embedded iexplore seems to have ended on its own (did we kil
+l the real browser???)
+15:20:10.782 INFO - Got result: OK on session a84fc3216d6c41f1865ab7a710189814
+
+}}}
