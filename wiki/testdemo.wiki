@@ -1,0 +1,115 @@
+=Applet test demo =
+==1, The demo applet we want to verify: ==
+{{{
+package com.nemo.festselenium.demo;
+
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+
+public class DemoApplet extends JApplet implements AdjustmentListener{
+
+	private static final long serialVersionUID = 1L;
+	JScrollBar slider;		
+	JTextComponent text;		
+	JPanel panel;
+	
+	public void adjustmentValueChanged(AdjustmentEvent e) {
+		text.setText(new Integer(slider.getValue()).toString());
+	} 
+	
+	public DemoApplet(){
+		slider = new JScrollBar(JScrollBar.HORIZONTAL, 0, 1, 0, 100);
+		text = new JTextArea("0");
+		panel = new JPanel();
+		panel.add(text);
+		panel.add(slider);
+		add(panel);
+		slider.addAdjustmentListener(this);
+	}
+}
+
+}}}
+
+== 2, create a test fixture for this applet==
+{{{
+package com.nemo.festselenium.demo;
+
+import org.fest.swing.fixture.JAppletFixture;
+
+public class JTestFixture extends DemoApplet {
+	JAppletFixture fixture;
+	
+	public JTestFixture() {
+		super();
+		
+		setName("demo_applet");
+		fixture=new JAppletFixture(this);
+	}
+	  public JAppletFixture getTestFixture() {
+		  return fixture;
+	  }
+}
+
+}}}
+We need create a public function getTestFixture and call setName("demo_applet") in order festselenium can communicate with it.
+
+==3 create a test html with applet ID=demo_applet ==
+{{{
+<html>
+<head>
+<title>Test</title>
+</head>
+<body>
+<div>
+<object id="demo_applet" width="300" height="150" type="application/x-java-applet">
+    <param name="java_code" value="com.nemo.festselenium.demo.JTestFixture.class" />
+    <param name="java_archive" value="fest-swing-1.2a3.jar,fest-assert-1.1.jar,fest-util-1.1.jar,fest-reflect-1.2-SNAPSHOT.jar" />
+</object>
+</div>
+</body>
+</html>
+}}}
+Notes: this applet depends on _* fest-swing-1.2a3.jar,fest-assert-1.1.jar,fest-util-1.1.jar,fest-reflect-1.2-SNAPSHOT.jar*, you can download it from [http://code.google.com/p/fest/  fest project]
+
+==4, create the unit test cases==
+{{{
+package com.nemo.festselenium.demo;
+
+import static org.junit.Assert.*;
+
+import org.junit.*;
+import com.nemo.festselenium.fixture.*;
+import com.nemo.festselenium.selenium.*;
+
+public class DemoTest {
+	DefaultJavaSelenium selenium;
+	
+	@Before
+	public void setUp() {
+		selenium = new DefaultJavaSelenium("localhost",4444, "*iexplore" , "http://localhost:8080");		
+	}
+	
+	@After
+	public void tearDown() {
+		selenium.stop();
+	}
+	@Test
+	public void test() {
+
+		selenium.start();
+		selenium.open("demo_applet.html");
+		selenium.windowMaximize();
+		AppletFixture fixture = selenium.applet("demo_applet");
+		ScrollBarFixture scrollbar = fixture.scrollBar();
+		TextComponentFixture text = fixture.textBox();
+		scrollbar.scrollUnitUp();
+		assertEquals(text.text(), "1");		
+	}	
+
+}
+}}}
+
+Note: The unit test depends on _* festselenium-1.0.jar, selenium-server-standalone-2.25.0.jar and selenium-java-2.25.0.jar* . the last two jar can be download from [http://www.eclipse.org/downloads/ selenium offical site]
