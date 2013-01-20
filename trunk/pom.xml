@@ -53,7 +53,7 @@
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
       <version>2.25.0</version>
-      <scope>provided</scope>
+      <!-- <scope>provided</scope> -->
 	   <exclusions>
      <exclusion>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -155,5 +155,46 @@
 	   </exclusions>		 
     </dependency>	
   </dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<compilerArguments>
+							<verbose />
+							<bootclasspath>${java.home}/lib/rt.jar</bootclasspath>
+						</compilerArguments>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.7</version>
+					<configuration>
+				     <links>
+						<!-- <link>http://java.sun.com/j2se/1.4.2/docs/api/</link>	-->
+						<link>http://fest.easytesting.org/swing/apidocs/</link>
+					 </links>					
+						<charset>UTF-8</charset>
+						<locale>en_US</locale>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.2-beta-5</version>
+					<configuration>
+						<descriptorRefs>
+							<descriptorRef>jar-with-dependencies</descriptorRef>
+						</descriptorRefs>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>  
   <description>Control Fest + Selenium for applet automation testing</description>
 </project>
